@@ -332,24 +332,22 @@ export const InvoiceGeneratorPage: React.FC = () => {
         onNewInvoice={handleNewInvoice}
       />
 
-      {/* Hidden A4 Export Container for Pixel-Perfect PDF Generation matching Selected Template */}
+      {/* Dedicated A4 Export Container for Pixel-Perfect PDF Generation matching Selected Template */}
       <div
         id="invoice-pdf-export-container"
-        key={`export-container-${invoice.template}-${invoice.customization?.font}-${invoice.customization?.primaryColor}-${invoice.customization?.logoPosition}-${invoice.updatedAt}`}
         aria-hidden="true"
         className={`bg-white font-${invoice.customization?.font || 'inter'}`}
         style={{
-          position: 'fixed',
-          top: 0,
-          left: 0,
+          position: 'absolute',
+          left: '-9999px',
+          top: '0',
           width: '794px',
           minHeight: '1123px',
-          zIndex: -9999,
-          pointerEvents: 'none',
           opacity: 1,
           visibility: 'visible',
           backgroundColor: '#ffffff',
           overflow: 'visible',
+          pointerEvents: 'none',
         }}
       >
         {renderTemplateComponent(invoice.template, { invoice, totals })}

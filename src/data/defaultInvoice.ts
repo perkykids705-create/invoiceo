@@ -1,4 +1,5 @@
 import { InvoiceData } from '../types/invoice';
+import { DEFAULT_SAMPLE_LOGO } from './sampleLogo';
 
 export const getInitialInvoiceData = (): InvoiceData => {
   const today = new Date();
@@ -24,7 +25,7 @@ export const getInitialInvoiceData = (): InvoiceData => {
       website: 'www.apexstudio.io',
       taxNumber: 'US-EIN-94-3829104',
       registrationNumber: 'LLC-CA-2024-88',
-      logo: 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 50" width="180" height="50"><rect width="180" height="50" rx="4" fill="%2330364F"/><polygon points="18,36 30,14 42,36" fill="%23FFFFFF"/><polygon points="26,36 30,26 34,36" fill="%2330364F"/><text x="50" y="32" font-family="system-ui,-apple-system,sans-serif" font-size="18" font-weight="800" fill="%23FFFFFF">APEX</text><text x="104" y="32" font-family="system-ui,-apple-system,sans-serif" font-size="18" font-weight="300" fill="%2394A3B8">STUDIO</text></svg>',
+      logo: DEFAULT_SAMPLE_LOGO,
     },
 
     customer: {
