@@ -1,0 +1,130 @@
+import { TemplateDefinition } from '../types/invoice';
+
+export const TEMPLATES_LIST: TemplateDefinition[] = [
+  {
+    id: 'template-01',
+    name: 'Classic Professional',
+    description: 'Clean, traditional business layout with top header and structured table.',
+    category: 'Standard',
+    previewBg: '#30364F',
+    badge: 'Popular',
+  },
+  {
+    id: 'template-02',
+    name: 'Minimal Modern',
+    description: 'Understated layout with airy whitespace and subtle dividers.',
+    category: 'Modern',
+    previewBg: '#0f172a',
+    badge: 'Clean',
+  },
+  {
+    id: 'template-03',
+    name: 'Corporate Executive',
+    description: 'Authoritative styling with dual-toned header bar and clear metadata blocks.',
+    category: 'Business',
+    previewBg: '#1e3a8a',
+  },
+  {
+    id: 'template-04',
+    name: 'Bold Header',
+    description: 'High-contrast solid colored banner across the top with white typography.',
+    category: 'Creative',
+    previewBg: '#4f46e5',
+  },
+  {
+    id: 'template-05',
+    name: 'Sidebar Layout',
+    description: 'Distinct vertical left panel for business details and invoice info.',
+    category: 'Special',
+    previewBg: '#0d9488',
+  },
+  {
+    id: 'template-06',
+    name: 'Elegant Serif',
+    description: 'Sophisticated editorial look with refined serif headings and fine rules.',
+    category: 'Luxury',
+    previewBg: '#78350f',
+  },
+  {
+    id: 'template-07',
+    name: 'Compact Grid',
+    description: 'Space-saving dense layout ideal for invoices with numerous line items.',
+    category: 'Technical',
+    previewBg: '#475569',
+  },
+  {
+    id: 'template-08',
+    name: 'Modern Business',
+    description: 'Card-based info clusters with badge highlights and modern data rows.',
+    category: 'Modern',
+    previewBg: '#0891b2',
+  },
+  {
+    id: 'template-09',
+    name: 'Top-Accent Stripe',
+    description: 'Sleek top color bar with right-aligned bold totals and prominent dates.',
+    category: 'Standard',
+    previewBg: '#16a34a',
+  },
+  {
+    id: 'template-10',
+    name: 'Structured Accounting',
+    description: 'Rigorous boxed ledger style with clear accounting grid lines.',
+    category: 'Finance',
+    previewBg: '#334155',
+  },
+  {
+    id: 'template-11',
+    name: 'Clean Two-Column',
+    description: 'Side-by-side header partitioning company and client cards symmetrically.',
+    category: 'Clean',
+    previewBg: '#6366f1',
+  },
+  {
+    id: 'template-12',
+    name: 'Premium Minimalist',
+    description: 'High-end monochrome aesthetic with bold typography and minimalist accents.',
+    category: 'Luxury',
+    previewBg: '#18181b',
+  },
+];
+
+export const COLOR_PRESETS = [
+  { name: 'Twilight Navy', value: '#30364F' },
+  { name: 'Classic Blue', value: '#2563eb' },
+  { name: 'Slate Dark', value: '#1e293b' },
+  { name: 'Indigo', value: '#4f46e5' },
+  { name: 'Emerald', value: '#059669' },
+  { name: 'Teal', value: '#0d9488' },
+  { name: 'Cyan', value: '#0891b2' },
+  { name: 'Crimson', value: '#dc2626' },
+  { name: 'Rose', value: '#e11d48' },
+  { name: 'Amber', value: '#d97706' },
+  { name: 'Violet', value: '#7c3aed' },
+  { name: 'Neutral Dark', value: '#18181b' },
+];
+
+export const FONT_OPTIONS = [
+  { id: 'inter', name: 'Inter (Clean Sans)', className: 'font-inter' },
+  { id: 'roboto', name: 'Roboto (Standard)', className: 'font-roboto' },
+  { id: 'montserrat', name: 'Montserrat (Geometric)', className: 'font-montserrat' },
+  { id: 'jakarta', name: 'Plus Jakarta (Modern)', className: 'font-jakarta' },
+  { id: 'playfair', name: 'Playfair Display (Serif)', className: 'font-playfair' },
+  { id: 'courier', name: 'Courier Prime (Monospace)', className: 'font-courier' },
+];
+
+export const CURRENCY_OPTIONS = [
+  { code: 'USD', symbol: '$', name: 'USD ($) - US Dollar' },
+  { code: 'EUR', symbol: '€', name: 'EUR (€) - Euro' },
+  { code: 'GBP', symbol: '£', name: 'GBP (£) - British Pound' },
+  { code: 'CAD', symbol: 'CA$', name: 'CAD ($) - Canadian Dollar' },
+  { code: 'AUD', symbol: 'A$', name: 'AUD ($) - Australian Dollar' },
+  { code: 'JPY', symbol: '¥', name: 'JPY (¥) - Japanese Yen' },
+  { code: 'INR', symbol: '₹', name: 'INR (₹) - Indian Rupee' },
+  { code: 'CHF', symbol: 'CHF', name: 'CHF - Swiss Franc' },
+  { code: 'SGD', symbol: 'S$', name: 'SGD ($) - Singapore Dollar' },
+  { code: 'BRL', symbol: 'R$', name: 'BRL (R$) - Brazilian Real' },
+  { code: 'MXN', symbol: 'Mex$', name: 'MXN ($) - Mexican Peso' },
+  { code: 'ZAR', symbol: 'R', name: 'ZAR (R) - South African Rand' },
+  { code: 'AED', symbol: 'AED', name: 'AED - UAE Dirham' },
+];

@@ -1,0 +1,6 @@
+{
+  "name": "InvoiceFlow - Free Professional Invoice Generator",
+  "description": "Create, customize, and download professional client-ready PDF invoices locally in your browser. 12 responsive templates, real-time calculations, and zero signups required.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
