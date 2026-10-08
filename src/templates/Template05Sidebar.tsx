@@ -14,7 +14,13 @@ export const Template05Sidebar: React.FC<TemplateProps> = ({ invoice, totals }) 
     <div className="bg-white text-slate-800 min-h-[1050px] flex flex-col justify-between">
       <div className="grid grid-cols-12 min-h-[1000px]">
         {/* Left Vertical Sidebar Panel (30%) */}
-        <div className="col-span-4 bg-slate-50 border-r border-slate-200 p-6 flex flex-col justify-between">
+        <div 
+          className="col-span-4 border-r p-6 flex flex-col justify-between"
+          style={{ 
+            backgroundColor: `${primaryColor}10`,
+            borderColor: `${primaryColor}30`
+          }}
+        >
           <div className="space-y-6">
             {invoice.business.logo && (
               <TemplateLogo
@@ -29,7 +35,7 @@ export const Template05Sidebar: React.FC<TemplateProps> = ({ invoice, totals }) 
               <div className="text-xs text-slate-600 whitespace-pre-line mt-1">{invoice.business.address}</div>
             </div>
 
-            <div className="text-xs text-slate-600 space-y-1 pt-2 border-t border-slate-200">
+            <div className="text-xs text-slate-600 space-y-1 pt-2 border-t" style={{ borderColor: `${primaryColor}25` }}>
               {invoice.business.email && <div>{invoice.business.email}</div>}
               {invoice.business.phone && <div>{invoice.business.phone}</div>}
               {invoice.business.website && <div>{invoice.business.website}</div>}
@@ -37,8 +43,8 @@ export const Template05Sidebar: React.FC<TemplateProps> = ({ invoice, totals }) 
             </div>
 
             {/* Invoice meta on sidebar */}
-            <div className="pt-4 border-t border-slate-200 space-y-2">
-              <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 block">
+            <div className="pt-4 border-t space-y-2" style={{ borderColor: `${primaryColor}25` }}>
+              <span className="text-[10px] font-bold uppercase tracking-wider block" style={{ color: primaryColor }}>
                 Invoice Details
               </span>
               <div className="text-xs">
@@ -64,8 +70,8 @@ export const Template05Sidebar: React.FC<TemplateProps> = ({ invoice, totals }) 
 
           {/* Payment instructions at sidebar bottom */}
           {invoice.paymentInstructions && (
-            <div className="pt-6 border-t border-slate-200">
-              <span className="text-[10px] font-bold uppercase tracking-wider text-slate-500 block mb-1">
+            <div className="pt-6 border-t" style={{ borderColor: `${primaryColor}25` }}>
+              <span className="text-[10px] font-bold uppercase tracking-wider block mb-1" style={{ color: primaryColor }}>
                 Remittance
               </span>
               <div className="text-[11px] text-slate-600 font-mono whitespace-pre-line leading-relaxed">
