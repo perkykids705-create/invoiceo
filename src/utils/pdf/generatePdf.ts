@@ -69,18 +69,16 @@ export const generateSearchablePdf = async (invoice: InvoiceData): Promise<void>
         onclone: (clonedDoc, clonedElement) => {
           const clonedWin = clonedDoc.defaultView || window;
 
-          // Clear out everything else in clonedDoc body to isolate our invoice template
-          while (clonedDoc.body.firstChild) {
-            clonedDoc.body.removeChild(clonedDoc.body.firstChild);
+          // In clonedDoc, hide all siblings of clonedElement so ONLY the template is visible and measured
+          if (clonedElement.parentElement) {
+            Array.from(clonedElement.parentElement.children).forEach((child) => {
+              if (child !== clonedElement) {
+                (child as HTMLElement).style.display = 'none';
+              }
+            });
           }
-          clonedDoc.body.style.margin = '0';
-          clonedDoc.body.style.padding = '0';
-          clonedDoc.body.style.backgroundColor = '#ffffff';
-          clonedDoc.body.style.width = '794px';
-          clonedDoc.body.style.minHeight = '1123px';
-          clonedDoc.body.style.overflow = 'visible';
 
-          // Put clonedElement at top-left static flow
+          // Ensure clonedElement is in static document flow at (0, 0)
           clonedElement.style.position = 'static';
           clonedElement.style.transform = 'none';
           clonedElement.style.left = '0';
@@ -89,12 +87,14 @@ export const generateSearchablePdf = async (invoice: InvoiceData): Promise<void>
           clonedElement.style.visibility = 'visible';
           clonedElement.style.opacity = '1';
           clonedElement.style.width = '794px';
-          clonedElement.style.minHeight = '1123px';
           clonedElement.style.margin = '0';
           clonedElement.style.padding = '0';
           clonedElement.style.display = 'block';
 
-          clonedDoc.body.appendChild(clonedElement);
+          clonedDoc.body.style.backgroundColor = '#ffffff';
+          clonedDoc.body.style.margin = '0';
+          clonedDoc.body.style.padding = '0';
+          clonedDoc.body.style.width = '794px';
 
           // Helper to sanitize Tailwind v4 oklch / lab color values to standard rgb / hex
           try {
@@ -171,12 +171,17 @@ export const generateSearchablePdf = async (invoice: InvoiceData): Promise<void>
       const totalPages = Math.max(1, Math.ceil(canvasHeight / pageCanvasHeight));
 
       for (let page = 0; page < totalPages; page++) {
+        const srcY = page * pageCanvasHeight;
+        const currentSliceHeight = Math.min(pageCanvasHeight, canvasHeight - srcY);
+
+        // Skip micro-slices at the bottom (e.g. slight padding / margin overflow under 40px)
+        if (page > 0 && currentSliceHeight < 40) {
+          break;
+        }
+
         if (page > 0) {
           pdf.addPage();
         }
-
-        const srcY = page * pageCanvasHeight;
-        const currentSliceHeight = Math.min(pageCanvasHeight, canvasHeight - srcY);
 
         // Render page slice onto page canvas
         const pageCanvas = document.createElement('canvas');

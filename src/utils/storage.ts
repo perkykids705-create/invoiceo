@@ -25,6 +25,13 @@ export const loadActiveInvoice = (): InvoiceData => {
     if (raw) {
       const parsed = JSON.parse(raw);
       if (parsed && parsed.invoiceNumber && parsed.items) {
+        if (!parsed.business?.logo && parsed.invoiceNumber === 'INV-2026-001') {
+          const sample = getInitialInvoiceData();
+          parsed.business = {
+            ...parsed.business,
+            logo: sample.business.logo,
+          };
+        }
         return parsed;
       }
     }

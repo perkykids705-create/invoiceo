@@ -8,7 +8,7 @@ export const Template06Elegant: React.FC<TemplateProps> = ({ invoice, totals }) 
   const dateFormat = invoice.customization?.dateFormat;
   const numFormat = invoice.customization?.numberFormat;
   const curr = invoice.currencySymbol;
-  const logoPos = invoice.customization?.logoPosition || 'center';
+  const logoPos = invoice.customization?.logoPosition || 'left';
 
   return (
     <div className="p-8 sm:p-12 text-slate-800 bg-[#fffdfa] min-h-[1050px] flex flex-col justify-between font-serif">

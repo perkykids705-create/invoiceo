@@ -341,10 +341,10 @@ export const InvoiceGeneratorPage: React.FC = () => {
         style={{
           position: 'fixed',
           top: 0,
-          left: '-9999px',
+          left: 0,
           width: '794px',
           minHeight: '1123px',
-          zIndex: 99999,
+          zIndex: -9999,
           pointerEvents: 'none',
           opacity: 1,
           visibility: 'visible',

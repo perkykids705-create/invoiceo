@@ -8,7 +8,7 @@ export const Template04BoldHeader: React.FC<TemplateProps> = ({ invoice, totals 
   const dateFormat = invoice.customization?.dateFormat;
   const numFormat = invoice.customization?.numberFormat;
   const curr = invoice.currencySymbol;
-  const logoPos = invoice.customization?.logoPosition || 'right';
+  const logoPos = invoice.customization?.logoPosition || 'left';
 
   return (
     <div className="bg-white text-slate-800 min-h-[1050px] flex flex-col justify-between overflow-hidden">

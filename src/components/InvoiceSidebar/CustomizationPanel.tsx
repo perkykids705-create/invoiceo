@@ -236,13 +236,16 @@ export const CustomizationPanel: React.FC<CustomizationPanelProps> = ({
 
       {/* 4. LOGO POSITION */}
       <div className="space-y-2 pb-4 border-b border-slate-200">
-        <label className="block text-sm font-semibold text-slate-600">Logo Position</label>
+        <div className="flex items-center justify-between">
+          <label className="block text-sm font-semibold text-slate-600">Logo Position</label>
+          <span className="text-xs font-bold text-black uppercase">{customization.logoPosition || 'left'}</span>
+        </div>
         <div className="grid grid-cols-3 gap-1.5 bg-slate-100 p-1.5 rounded-[4px]">
           <button
             type="button"
             onClick={() => onChange({ ...customization, logoPosition: 'left' })}
             className={`py-1.5 text-sm font-bold flex items-center justify-center gap-1.5 rounded-[3px] transition-colors cursor-pointer ${
-              customization.logoPosition === 'left'
+              (customization.logoPosition || 'left') === 'left'
                 ? 'bg-black text-white shadow-2xs font-extrabold'
                 : 'text-black hover:bg-slate-200'
             }`}
