@@ -29,7 +29,7 @@ export const CustomerForm: React.FC<CustomerFormProps> = ({ customer, onChange }
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div>
-          <label className="block text-sm font-extrabold text-black mb-1.5">
+          <label className="block text-sm font-semibold text-slate-600 mb-1.5">
             Client / Contact Name <span className="text-rose-600">*</span>
           </label>
           <input
@@ -41,7 +41,7 @@ export const CustomerForm: React.FC<CustomerFormProps> = ({ customer, onChange }
           />
         </div>
         <div>
-          <label className="block text-sm font-extrabold text-black mb-1.5">
+          <label className="block text-sm font-semibold text-slate-600 mb-1.5">
             Company Name
           </label>
           <input
@@ -55,7 +55,7 @@ export const CustomerForm: React.FC<CustomerFormProps> = ({ customer, onChange }
       </div>
 
       <div>
-        <label className="block text-sm font-extrabold text-black mb-1.5">
+        <label className="block text-sm font-semibold text-slate-600 mb-1.5">
           Billing Address
         </label>
         <textarea
@@ -69,7 +69,7 @@ export const CustomerForm: React.FC<CustomerFormProps> = ({ customer, onChange }
 
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
         <div>
-          <label className="block text-sm font-extrabold text-black mb-1.5">
+          <label className="block text-sm font-semibold text-slate-600 mb-1.5">
             Email Address
           </label>
           <input
@@ -81,7 +81,7 @@ export const CustomerForm: React.FC<CustomerFormProps> = ({ customer, onChange }
           />
         </div>
         <div>
-          <label className="block text-sm font-extrabold text-black mb-1.5">
+          <label className="block text-sm font-semibold text-slate-600 mb-1.5">
             Phone Number
           </label>
           <input
@@ -93,7 +93,7 @@ export const CustomerForm: React.FC<CustomerFormProps> = ({ customer, onChange }
           />
         </div>
         <div>
-          <label className="block text-sm font-extrabold text-black mb-1.5">
+          <label className="block text-sm font-semibold text-slate-600 mb-1.5">
             Client Tax / VAT ID
           </label>
           <input

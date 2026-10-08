@@ -69,7 +69,7 @@ export const InvoiceTotalsForm: React.FC<InvoiceTotalsFormProps> = ({
 
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="block text-xs font-extrabold text-black mb-1">Discount Label</label>
+              <label className="block text-xs font-semibold text-slate-600 mb-1">Discount Label</label>
               <input
                 type="text"
                 value={invoice.discountLabel}
@@ -79,7 +79,7 @@ export const InvoiceTotalsForm: React.FC<InvoiceTotalsFormProps> = ({
               />
             </div>
             <div>
-              <label className="block text-xs font-extrabold text-black mb-1">
+              <label className="block text-xs font-semibold text-slate-600 mb-1">
                 Discount Value {invoice.discountType === 'percentage' ? '(%)' : `(${curr})`}
               </label>
               <input
@@ -109,7 +109,7 @@ export const InvoiceTotalsForm: React.FC<InvoiceTotalsFormProps> = ({
 
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="block text-xs font-extrabold text-black mb-1">Tax Label</label>
+              <label className="block text-xs font-semibold text-slate-600 mb-1">Tax Label</label>
               <input
                 type="text"
                 value={invoice.taxLabel}
@@ -119,7 +119,7 @@ export const InvoiceTotalsForm: React.FC<InvoiceTotalsFormProps> = ({
               />
             </div>
             <div>
-              <label className="block text-xs font-extrabold text-black mb-1">Tax Rate (%)</label>
+              <label className="block text-xs font-semibold text-slate-600 mb-1">Tax Rate (%)</label>
               <input
                 type="number"
                 min="0"
@@ -141,7 +141,7 @@ export const InvoiceTotalsForm: React.FC<InvoiceTotalsFormProps> = ({
 
         {/* Shipping / Additional fees */}
         <div className="grid grid-cols-2 gap-3 items-center pt-1">
-          <label className="text-sm font-extrabold text-black">
+          <label className="text-sm font-semibold text-slate-600">
             Shipping / Handling / Extra Fee
           </label>
           <input

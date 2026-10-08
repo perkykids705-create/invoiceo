@@ -14,11 +14,11 @@ export const FourColumnSection: React.FC = () => {
                 Invoice Generator
               </h3>
             </div>
-            <p className="text-sm text-black leading-relaxed mb-3.5 font-medium">
+            <p className="text-sm text-slate-600 leading-relaxed mb-3.5 font-medium">
               Fast, privacy-first invoice creator designed for independent contractors, freelancers, and small enterprise teams.
             </p>
-            <ul className="text-sm space-y-2 text-black font-semibold">
-              <li>• 12 Responsive Templates</li>
+            <ul className="text-sm space-y-2 text-slate-600 font-medium">
+              <li>• <span className="text-black font-bold">12 Responsive Templates</span></li>
               <li>• Instant Live Preview</li>
               <li>• Browser LocalStorage</li>
               <li>• Free PDF Download</li>
@@ -33,18 +33,22 @@ export const FourColumnSection: React.FC = () => {
                 Key Features
               </h3>
             </div>
-            <ul className="text-sm space-y-2.5 text-black leading-relaxed">
+            <ul className="text-sm space-y-2.5 leading-relaxed">
               <li>
-                <span className="font-black text-black">Auto Calculations:</span> Taxes, discounts, shipping, and balance due.
+                <span className="font-black text-black">Auto Calculations:</span>{' '}
+                <span className="text-slate-600 font-medium">Taxes, discounts, shipping, and balance due.</span>
               </li>
               <li>
-                <span className="font-black text-black">Color Customization:</span> Pick any brand accent color with live preview.
+                <span className="font-black text-black">Color Customization:</span>{' '}
+                <span className="text-slate-600 font-medium">Pick any brand accent color with live preview.</span>
               </li>
               <li>
-                <span className="font-black text-black">Logo Upload:</span> Embed company logos with automatic sizing.
+                <span className="font-black text-black">Logo Upload:</span>{' '}
+                <span className="text-slate-600 font-medium">Embed company logos with automatic sizing.</span>
               </li>
               <li>
-                <span className="font-black text-black">Multi-Currency:</span> Full support for USD, EUR, GBP, CAD, AUD, JPY, and more.
+                <span className="font-black text-black">Multi-Currency:</span>{' '}
+                <span className="text-slate-600 font-medium">Full support for USD, EUR, GBP, CAD, AUD, JPY, and more.</span>
               </li>
             </ul>
           </div>
@@ -57,18 +61,22 @@ export const FourColumnSection: React.FC = () => {
                 Data & Storage
               </h3>
             </div>
-            <ul className="text-sm space-y-2.5 text-black leading-relaxed">
+            <ul className="text-sm space-y-2.5 leading-relaxed">
               <li>
-                <span className="font-black text-black">JSON Import/Export:</span> Port invoices seamlessly across devices.
+                <span className="font-black text-black">JSON Import/Export:</span>{' '}
+                <span className="text-slate-600 font-medium">Port invoices seamlessly across devices.</span>
               </li>
               <li>
-                <span className="font-black text-black">Local Multi-Invoice Store:</span> Keep recent invoices right in your browser.
+                <span className="font-black text-black">Local Multi-Invoice Store:</span>{' '}
+                <span className="text-slate-600 font-medium">Keep recent invoices right in your browser.</span>
               </li>
               <li>
-                <span className="font-black text-black">Zero Tracking:</span> No tracking cookies, telemetry, or server database.
+                <span className="font-black text-black">Zero Tracking:</span>{' '}
+                <span className="text-slate-600 font-medium">No tracking cookies, telemetry, or server database.</span>
               </li>
               <li>
-                <span className="font-black text-black">A4 Vector Standard:</span> Crisp, searchable PDFs for accounting.
+                <span className="font-black text-black">A4 Vector Standard:</span>{' '}
+                <span className="text-slate-600 font-medium">Crisp, searchable PDFs for accounting.</span>
               </li>
             </ul>
           </div>

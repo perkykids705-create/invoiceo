@@ -38,18 +38,18 @@ export const SeoContent: React.FC = () => {
           <h1 className="text-2xl sm:text-3xl font-black text-black tracking-tight">
             Invoiceo.online — Free Online Invoice Generator for Freelancers, Agencies & Small Businesses
           </h1>
-          <p className="mt-4 text-base sm:text-lg text-black leading-relaxed font-medium">
+          <p className="mt-4 text-base sm:text-lg text-slate-600 leading-relaxed font-medium">
             Invoiceo.online empowers you to create, customize, and download client-ready invoices in seconds. Equipped with 12 professional layout styles, instant tax & discount calculations, and browser-local privacy.
           </p>
         </div>
 
         {/* Article Content Structure */}
-        <div className="space-y-8 text-base text-black leading-relaxed font-normal">
+        <div className="space-y-8 text-base text-slate-600 leading-relaxed font-normal">
           <div>
             <h2 className="text-xl font-black text-black mb-3">
               How to Create a Professional Invoice
             </h2>
-            <p className="text-black">
+            <p className="text-slate-600">
               Creating a polished invoice is simple: enter your business contact details and upload your logo in the form above. Next, fill in your client&apos;s billing credentials, itemize the products or services delivered with quantities and rates, apply appropriate taxes or discounts, and specify your preferred payment instructions. Your live preview updates automatically in real time as you type.
             </p>
           </div>
@@ -60,7 +60,7 @@ export const SeoContent: React.FC = () => {
                 <CheckCircle2 className="w-5 h-5 text-black" />
                 <span>Essential Invoice Elements</span>
               </h3>
-              <p className="text-sm text-black leading-relaxed font-medium">
+              <p className="text-sm text-slate-600 leading-relaxed font-medium">
                 Include unique invoice identifiers, issue and due dates, business tax numbers (VAT/EIN/GST), itemized service lines, currency denomination, and bank wire details.
               </p>
             </div>
@@ -70,7 +70,7 @@ export const SeoContent: React.FC = () => {
                 <ShieldAlert className="w-5 h-5 text-black" />
                 <span>Zero Cloud Storage Privacy</span>
               </h3>
-              <p className="text-sm text-black leading-relaxed font-medium">
+              <p className="text-sm text-slate-600 leading-relaxed font-medium">
                 Your financial records and client confidentiality remain 100% in your hands. All invoice drafts, logos, and customizations stay strictly within your browser&apos;s localStorage sandbox.
               </p>
             </div>
@@ -80,7 +80,7 @@ export const SeoContent: React.FC = () => {
             <h2 className="text-xl font-black text-black mb-3">
               Choosing the Right Invoice Template for Your Industry
             </h2>
-            <p className="text-black">
+            <p className="text-slate-600">
               Different industries benefit from tailored presentation styles. Agencies and design studios often favor the Minimal or Bold Header styles, while corporate consultants and enterprise contractors prefer the Corporate Executive or Structured Accounting layouts. Select from the 12 layouts displayed directly on this page to find the ideal match for your brand.
             </p>
           </div>
@@ -112,7 +112,7 @@ export const SeoContent: React.FC = () => {
                     )}
                   </button>
                   {isOpen && (
-                    <div className="p-4 text-base text-black bg-white border-t border-slate-200 leading-relaxed font-medium">
+                    <div className="p-4 text-base text-slate-600 bg-white border-t border-slate-200 leading-relaxed font-medium">
                       {faq.a}
                     </div>
                   )}

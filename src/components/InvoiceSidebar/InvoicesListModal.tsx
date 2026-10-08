@@ -36,7 +36,7 @@ export const InvoicesListModal: React.FC<InvoicesListModalProps> = ({
             <FolderOpen className="w-5 h-5 text-black" />
             <div>
               <h2 className="font-black text-lg text-black">Saved Invoices</h2>
-              <p className="text-xs text-black font-semibold">
+              <p className="text-xs text-slate-600 font-medium">
                 Stored privately in your browser&apos;s localStorage ({invoices.length} invoices)
               </p>
             </div>
@@ -53,9 +53,9 @@ export const InvoicesListModal: React.FC<InvoicesListModalProps> = ({
         {/* Modal List Body */}
         <div className="p-6 overflow-y-auto space-y-3.5 flex-1">
           {invoices.length === 0 ? (
-            <div className="text-center py-14 text-black space-y-3">
-              <FolderOpen className="w-12 h-12 mx-auto text-black" />
-              <p className="text-base font-extrabold text-black">No saved invoices found in this browser.</p>
+            <div className="text-center py-14 text-slate-600 space-y-3">
+              <FolderOpen className="w-12 h-12 mx-auto text-slate-400" />
+              <p className="text-base font-semibold text-slate-600">No saved invoices found in this browser.</p>
               <button
                 type="button"
                 onClick={() => {
@@ -139,7 +139,7 @@ export const InvoicesListModal: React.FC<InvoicesListModalProps> = ({
         </div>
 
         {/* Modal Footer */}
-        <div className="px-6 py-3.5 border-t border-slate-200 bg-slate-50 flex items-center justify-between text-xs sm:text-sm text-black font-semibold">
+        <div className="px-6 py-3.5 border-t border-slate-200 bg-slate-50 flex items-center justify-between text-xs sm:text-sm text-slate-600 font-medium">
           <span>Invoices are auto-saved in your browser storage.</span>
           <button
             type="button"

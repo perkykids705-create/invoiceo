@@ -256,7 +256,7 @@ export const InvoiceGeneratorPage: React.FC = () => {
                 <h2 className="text-2xl sm:text-3xl font-extrabold text-black tracking-tight">
                   Invoice Generator
                 </h2>
-                <p className="text-base text-black mt-1 font-medium">
+                <p className="text-base text-slate-600 mt-1 font-medium">
                   Fill in your details below. Preview and download update automatically in real time.
                 </p>
               </div>

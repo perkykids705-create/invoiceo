@@ -52,7 +52,7 @@ export const InvoiceDetailsForm: React.FC<InvoiceDetailsFormProps> = ({
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
         {/* Invoice Number */}
         <div>
-          <label className="block text-sm font-extrabold text-black mb-1.5">
+          <label className="block text-sm font-semibold text-slate-600 mb-1.5">
             Invoice Number <span className="text-rose-600">*</span>
           </label>
           <input
@@ -66,7 +66,7 @@ export const InvoiceDetailsForm: React.FC<InvoiceDetailsFormProps> = ({
 
         {/* Currency */}
         <div>
-          <label className="block text-sm font-extrabold text-black mb-1.5">
+          <label className="block text-sm font-semibold text-slate-600 mb-1.5">
             Currency
           </label>
           <select
@@ -84,7 +84,7 @@ export const InvoiceDetailsForm: React.FC<InvoiceDetailsFormProps> = ({
 
         {/* Issue Date */}
         <div>
-          <label className="block text-sm font-extrabold text-black mb-1.5">
+          <label className="block text-sm font-semibold text-slate-600 mb-1.5">
             Issue Date
           </label>
           <input
@@ -97,7 +97,7 @@ export const InvoiceDetailsForm: React.FC<InvoiceDetailsFormProps> = ({
 
         {/* Due Date */}
         <div>
-          <label className="block text-sm font-extrabold text-black mb-1.5">
+          <label className="block text-sm font-semibold text-slate-600 mb-1.5">
             Due Date
           </label>
           <input
@@ -112,7 +112,7 @@ export const InvoiceDetailsForm: React.FC<InvoiceDetailsFormProps> = ({
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-1">
         {/* Payment Terms */}
         <div>
-          <label className="block text-sm font-extrabold text-black mb-1.5">
+          <label className="block text-sm font-semibold text-slate-600 mb-1.5">
             Payment Terms
           </label>
           <div className="flex gap-2">
@@ -143,7 +143,7 @@ export const InvoiceDetailsForm: React.FC<InvoiceDetailsFormProps> = ({
 
         {/* Reference / PO */}
         <div>
-          <label className="block text-sm font-extrabold text-black mb-1.5">
+          <label className="block text-sm font-semibold text-slate-600 mb-1.5">
             PO Number / Reference Code
           </label>
           <input

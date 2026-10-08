@@ -61,7 +61,7 @@ export const CustomizationPanel: React.FC<CustomizationPanelProps> = ({
       {/* 1. TEMPLATE DESIGNS THUMBNAILS (Here in customization only) */}
       <div className="space-y-3 pb-4 border-b border-slate-200">
         <div className="flex items-center justify-between">
-          <label className="flex items-center gap-1.5 text-sm font-extrabold text-black">
+          <label className="flex items-center gap-1.5 text-sm font-semibold text-slate-600">
             <LayoutTemplate className="w-4 h-4 text-black" />
             <span>Template Designs</span>
           </label>
@@ -170,7 +170,7 @@ export const CustomizationPanel: React.FC<CustomizationPanelProps> = ({
 
       {/* 2. ACCENT COLOR */}
       <div className="space-y-2 pb-4 border-b border-slate-200">
-        <label className="flex items-center justify-between text-sm font-extrabold text-black">
+        <label className="flex items-center justify-between text-sm font-semibold text-slate-600">
           <span className="flex items-center gap-1.5">
             <Palette className="w-4 h-4 text-black" />
             <span>Accent & Brand Color</span>
@@ -212,7 +212,7 @@ export const CustomizationPanel: React.FC<CustomizationPanelProps> = ({
 
       {/* 3. TYPOGRAPHY FONT */}
       <div className="space-y-2 pb-4 border-b border-slate-200">
-        <label className="flex items-center gap-1.5 text-sm font-extrabold text-black">
+        <label className="flex items-center gap-1.5 text-sm font-semibold text-slate-600">
           <Type className="w-4 h-4 text-black" />
           <span>Typography Font</span>
         </label>
@@ -236,7 +236,7 @@ export const CustomizationPanel: React.FC<CustomizationPanelProps> = ({
 
       {/* 4. LOGO POSITION */}
       <div className="space-y-2 pb-4 border-b border-slate-200">
-        <label className="block text-sm font-extrabold text-black">Logo Position</label>
+        <label className="block text-sm font-semibold text-slate-600">Logo Position</label>
         <div className="grid grid-cols-3 gap-1.5 bg-slate-100 p-1.5 rounded-[4px]">
           <button
             type="button"
@@ -280,7 +280,7 @@ export const CustomizationPanel: React.FC<CustomizationPanelProps> = ({
       {/* 5. DATE FORMAT & NUMBER FORMAT */}
       <div className="grid grid-cols-2 gap-3 pt-1">
         <div>
-          <label className="block text-xs font-extrabold text-black mb-1">
+          <label className="block text-xs font-semibold text-slate-600 mb-1">
             Date Format
           </label>
           <select
@@ -301,7 +301,7 @@ export const CustomizationPanel: React.FC<CustomizationPanelProps> = ({
         </div>
 
         <div>
-          <label className="block text-xs font-extrabold text-black mb-1">
+          <label className="block text-xs font-semibold text-slate-600 mb-1">
             Number Format
           </label>
           <select

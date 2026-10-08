@@ -88,7 +88,7 @@ export const InvoiceSidebar: React.FC<InvoiceSidebarProps> = ({
           </button>
         </div>
 
-        <p className="text-xs text-black text-center pt-1 font-bold">
+        <p className="text-xs text-slate-600 text-center pt-1 font-medium">
           100% Vector & Searchable Text • Standard A4
         </p>
       </div>

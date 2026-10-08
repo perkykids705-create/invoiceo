@@ -19,6 +19,14 @@
     line-height: 1.6;
   }
 
+  p {
+    color: #475569;
+  }
+
+  label {
+    color: #475569;
+  }
+
   /* Universal 4px radius preference & comfortable control sizing */
   button, input, select, textarea {
     border-radius: 4px;

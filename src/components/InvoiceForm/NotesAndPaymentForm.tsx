@@ -26,7 +26,7 @@ export const NotesAndPaymentForm: React.FC<NotesAndPaymentFormProps> = ({
       <div className="space-y-4">
         {/* Notes */}
         <div>
-          <label className="block text-sm font-extrabold text-black mb-1.5">
+          <label className="block text-sm font-semibold text-slate-600 mb-1.5">
             Notes / Thank You Message
           </label>
           <textarea
@@ -41,7 +41,7 @@ export const NotesAndPaymentForm: React.FC<NotesAndPaymentFormProps> = ({
         {/* Payment Instructions */}
         <div>
           <div className="flex justify-between items-center mb-1.5">
-            <label className="block text-sm font-extrabold text-black">
+            <label className="block text-sm font-semibold text-slate-600">
               Payment Instructions / Bank Wire Info
             </label>
             <button
@@ -67,7 +67,7 @@ export const NotesAndPaymentForm: React.FC<NotesAndPaymentFormProps> = ({
 
         {/* Footer Text */}
         <div>
-          <label className="block text-sm font-extrabold text-black mb-1.5">
+          <label className="block text-sm font-semibold text-slate-600 mb-1.5">
             Invoice Footer Text
           </label>
           <input

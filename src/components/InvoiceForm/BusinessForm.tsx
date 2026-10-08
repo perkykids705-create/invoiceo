@@ -62,7 +62,7 @@ export const BusinessForm: React.FC<BusinessFormProps> = ({ business, onChange }
 
       {/* Logo Uploader & Preview */}
       <div>
-        <label className="block text-sm font-extrabold text-black mb-1.5">
+        <label className="block text-sm font-semibold text-slate-600 mb-1.5">
           Company Logo
         </label>
         {business.logo ? (
@@ -101,7 +101,7 @@ export const BusinessForm: React.FC<BusinessFormProps> = ({ business, onChange }
               <Upload className="w-4 h-4 text-black" />
               <span>Click to upload company logo (PNG, JPG, SVG)</span>
             </div>
-            <p className="text-xs sm:text-sm text-black font-medium mt-1">Recommended max height: 100px • Up to 2MB</p>
+            <p className="text-xs sm:text-sm text-slate-600 font-medium mt-1">Recommended max height: 100px • Up to 2MB</p>
           </div>
         )}
         <input
@@ -115,7 +115,7 @@ export const BusinessForm: React.FC<BusinessFormProps> = ({ business, onChange }
 
       {/* Business Name */}
       <div>
-        <label className="block text-sm font-extrabold text-black mb-1.5">
+        <label className="block text-sm font-semibold text-slate-600 mb-1.5">
           Business Name <span className="text-rose-600">*</span>
         </label>
         <input
@@ -129,7 +129,7 @@ export const BusinessForm: React.FC<BusinessFormProps> = ({ business, onChange }
 
       {/* Address */}
       <div>
-        <label className="block text-sm font-extrabold text-black mb-1.5">
+        <label className="block text-sm font-semibold text-slate-600 mb-1.5">
           Address & City
         </label>
         <textarea
@@ -144,7 +144,7 @@ export const BusinessForm: React.FC<BusinessFormProps> = ({ business, onChange }
       {/* Email & Phone */}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div>
-          <label className="block text-sm font-extrabold text-black mb-1.5">
+          <label className="block text-sm font-semibold text-slate-600 mb-1.5">
             Email Address
           </label>
           <input
@@ -156,7 +156,7 @@ export const BusinessForm: React.FC<BusinessFormProps> = ({ business, onChange }
           />
         </div>
         <div>
-          <label className="block text-sm font-extrabold text-black mb-1.5">
+          <label className="block text-sm font-semibold text-slate-600 mb-1.5">
             Phone Number
           </label>
           <input
@@ -172,7 +172,7 @@ export const BusinessForm: React.FC<BusinessFormProps> = ({ business, onChange }
       {/* Website & Tax/VAT */}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div>
-          <label className="block text-sm font-extrabold text-black mb-1.5">
+          <label className="block text-sm font-semibold text-slate-600 mb-1.5">
             Website
           </label>
           <input
@@ -184,7 +184,7 @@ export const BusinessForm: React.FC<BusinessFormProps> = ({ business, onChange }
           />
         </div>
         <div>
-          <label className="block text-sm font-extrabold text-black mb-1.5">
+          <label className="block text-sm font-semibold text-slate-600 mb-1.5">
             Tax ID / VAT No.
           </label>
           <input

@@ -89,7 +89,7 @@ export const LineItemsForm: React.FC<LineItemsFormProps> = ({
         </div>
 
         {/* Column Toggles */}
-        <div className="flex items-center gap-4 text-sm font-bold text-black">
+        <div className="flex items-center gap-4 text-sm font-semibold text-slate-600">
           <label className="flex items-center gap-2 cursor-pointer select-none">
             <input
               type="checkbox"
@@ -97,7 +97,7 @@ export const LineItemsForm: React.FC<LineItemsFormProps> = ({
               onChange={onToggleDiscount}
               className="rounded-[3px] accent-black text-black focus:ring-0 w-4 h-4 cursor-pointer"
             />
-            <span className="text-black">Item Discount</span>
+            <span className="text-slate-600">Item Discount</span>
           </label>
 
           <label className="flex items-center gap-2 cursor-pointer select-none">
@@ -107,7 +107,7 @@ export const LineItemsForm: React.FC<LineItemsFormProps> = ({
               onChange={onToggleTax}
               className="rounded-[3px] accent-black text-black focus:ring-0 w-4 h-4 cursor-pointer"
             />
-            <span className="text-black">Item Tax</span>
+            <span className="text-slate-600">Item Tax</span>
           </label>
         </div>
       </div>
@@ -174,7 +174,7 @@ export const LineItemsForm: React.FC<LineItemsFormProps> = ({
               {/* Numerical Inputs Row */}
               <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-6 gap-3 items-center pl-7">
                 <div>
-                  <label className="block text-xs font-bold text-black mb-1">
+                  <label className="block text-xs font-semibold text-slate-600 mb-1">
                     Quantity
                   </label>
                   <input
@@ -190,7 +190,7 @@ export const LineItemsForm: React.FC<LineItemsFormProps> = ({
                 </div>
 
                 <div>
-                  <label className="block text-xs font-bold text-black mb-1">
+                  <label className="block text-xs font-semibold text-slate-600 mb-1">
                     Rate ({currencySymbol})
                   </label>
                   <input
@@ -207,7 +207,7 @@ export const LineItemsForm: React.FC<LineItemsFormProps> = ({
 
                 {showDiscount && (
                   <div>
-                    <label className="block text-xs font-bold text-black mb-1">
+                    <label className="block text-xs font-semibold text-slate-600 mb-1">
                       Discount (%)
                     </label>
                     <input
@@ -225,7 +225,7 @@ export const LineItemsForm: React.FC<LineItemsFormProps> = ({
 
                 {showTax && (
                   <div>
-                    <label className="block text-xs font-bold text-black mb-1">
+                    <label className="block text-xs font-semibold text-slate-600 mb-1">
                       Tax (%)
                     </label>
                     <input
@@ -242,7 +242,7 @@ export const LineItemsForm: React.FC<LineItemsFormProps> = ({
                 )}
 
                 <div className="col-span-2 text-right">
-                  <span className="block text-xs font-bold text-black">Line Total</span>
+                  <span className="block text-xs font-semibold text-slate-600">Line Total</span>
                   <span className="font-black text-base sm:text-lg text-black">
                     {formatCurrency(lineTotal, currencySymbol)}
                   </span>
