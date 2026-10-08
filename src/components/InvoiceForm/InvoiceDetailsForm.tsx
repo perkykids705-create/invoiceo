@@ -1,7 +1,7 @@
 import React from 'react';
 import { InvoiceData } from '../../types/invoice';
 import { CURRENCY_OPTIONS } from '../../data/templates';
-import { Hash } from 'lucide-react';
+import { ReceiptText } from 'lucide-react';
 
 interface InvoiceDetailsFormProps {
   invoice: InvoiceData;
@@ -41,7 +41,7 @@ export const InvoiceDetailsForm: React.FC<InvoiceDetailsFormProps> = ({
     <div className="bg-white p-6 rounded-[4px] border border-slate-200 shadow-sm space-y-5">
       <div className="flex items-center justify-between pb-3.5 border-b border-slate-100">
         <div className="flex items-center gap-2.5 text-black font-extrabold text-base sm:text-lg">
-          <Hash className="w-5 h-5 text-black" />
+          <ReceiptText className="w-5 h-5 text-black" />
           <span>Invoice Information</span>
         </div>
         <span className="text-xs font-bold px-2 py-0.5 rounded bg-slate-100 text-black">

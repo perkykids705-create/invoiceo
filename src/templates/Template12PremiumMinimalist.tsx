@@ -1,19 +1,31 @@
 import React from 'react';
 import { TemplateProps } from './types';
 import { formatCurrency, formatDateString } from '../utils/formatters';
+import { TemplateLogo } from './TemplateLogo';
 
 export const Template12PremiumMinimalist: React.FC<TemplateProps> = ({ invoice, totals }) => {
   const primaryColor = invoice.customization?.primaryColor || '#18181b';
   const dateFormat = invoice.customization?.dateFormat;
   const numFormat = invoice.customization?.numberFormat;
   const curr = invoice.currencySymbol;
+  const logoPos = invoice.customization?.logoPosition || 'right';
 
   return (
     <div className="p-8 sm:p-12 text-zinc-900 bg-white min-h-[1050px] flex flex-col justify-between tracking-tight">
       <div>
+        {/* Top Centered Logo (if logoPosition === 'center') */}
+        {logoPos === 'center' && invoice.business.logo && (
+          <div className="mb-8 pb-3 border-b border-zinc-100 flex justify-center">
+            <TemplateLogo invoice={invoice} positionOverride="center" imgClassName="max-h-12 max-w-[160px] object-contain" />
+          </div>
+        )}
+
         {/* Top Stark Header */}
         <div className="flex justify-between items-start mb-12">
           <div>
+            {logoPos === 'left' && invoice.business.logo && (
+              <TemplateLogo invoice={invoice} positionOverride="left" className="mb-3" imgClassName="max-h-12 max-w-[160px] object-contain" />
+            )}
             <span className="text-[10px] tracking-widest uppercase font-mono text-zinc-400 block mb-2">
               TAX INVOICE
             </span>
@@ -27,14 +39,8 @@ export const Template12PremiumMinimalist: React.FC<TemplateProps> = ({ invoice, 
           </div>
 
           <div className="text-right">
-            {invoice.business.logo && (
-              <div className="flex justify-end mb-2">
-                <img
-                  src={invoice.business.logo}
-                  alt="Logo"
-                  className="max-h-12 max-w-[160px] object-contain"
-                />
-              </div>
+            {logoPos === 'right' && invoice.business.logo && (
+              <TemplateLogo invoice={invoice} positionOverride="right" className="mb-2" imgClassName="max-h-12 max-w-[160px] object-contain" />
             )}
             <div className="text-base font-bold text-zinc-900">{invoice.business.name || 'Company Name'}</div>
             <div className="text-xs text-zinc-500 whitespace-pre-line mt-1">{invoice.business.address}</div>

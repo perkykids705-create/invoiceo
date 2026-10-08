@@ -1,43 +1,49 @@
 import React from 'react';
 import { TemplateProps } from './types';
 import { formatCurrency, formatDateString } from '../utils/formatters';
+import { TemplateLogo } from './TemplateLogo';
 
 export const Template06Elegant: React.FC<TemplateProps> = ({ invoice, totals }) => {
   const primaryColor = invoice.customization?.primaryColor || '#78350f';
   const dateFormat = invoice.customization?.dateFormat;
   const numFormat = invoice.customization?.numberFormat;
   const curr = invoice.currencySymbol;
+  const logoPos = invoice.customization?.logoPosition || 'center';
 
   return (
     <div className="p-8 sm:p-12 text-slate-800 bg-[#fffdfa] min-h-[1050px] flex flex-col justify-between font-serif">
       <div>
-        {/* Centered Luxury Masthead */}
-        <div className="text-center pb-8 border-b border-amber-900/10 mb-8">
+        {/* Luxury Masthead with Logo Position */}
+        <div className="pb-8 border-b border-amber-900/10 mb-8">
           {invoice.business.logo && (
-            <div className="flex justify-center mb-3">
-              <img
-                src={invoice.business.logo}
-                alt="Logo"
-                className="max-h-14 max-w-[180px] object-contain"
+            <div className="mb-4">
+              <TemplateLogo
+                invoice={invoice}
+                positionOverride={logoPos}
+                imgClassName="max-h-14 max-w-[180px] object-contain"
               />
             </div>
           )}
-          <h1 className="text-2xl font-normal tracking-wide text-stone-900 uppercase">
-            {invoice.business.name || 'Studio & Associates'}
-          </h1>
-          <p className="text-xs text-stone-500 font-sans tracking-widest uppercase mt-1">
-            Invoice No. {invoice.invoiceNumber || 'INV-0001'}
-          </p>
-          <div className="flex justify-center gap-6 text-xs text-stone-500 font-sans mt-3">
-            <span>Date: {formatDateString(invoice.issueDate, dateFormat)}</span>
-            <span>•</span>
-            <span>Due: {formatDateString(invoice.dueDate, dateFormat)}</span>
-            {invoice.paymentTerms && (
-              <>
-                <span>•</span>
-                <span>Terms: {invoice.paymentTerms}</span>
-              </>
-            )}
+          <div className={logoPos === 'left' ? 'text-left' : logoPos === 'right' ? 'text-right' : 'text-center'}>
+            <h1 className="text-2xl font-normal tracking-wide text-stone-900 uppercase">
+              {invoice.business.name || 'Studio & Associates'}
+            </h1>
+            <p className="text-xs text-stone-500 font-sans tracking-widest uppercase mt-1">
+              Invoice No. {invoice.invoiceNumber || 'INV-0001'}
+            </p>
+            <div className={`flex flex-wrap gap-6 text-xs text-stone-500 font-sans mt-3 ${
+              logoPos === 'left' ? 'justify-start' : logoPos === 'right' ? 'justify-end' : 'justify-center'
+            }`}>
+              <span>Date: {formatDateString(invoice.issueDate, dateFormat)}</span>
+              <span>•</span>
+              <span>Due: {formatDateString(invoice.dueDate, dateFormat)}</span>
+              {invoice.paymentTerms && (
+                <>
+                  <span>•</span>
+                  <span>Terms: {invoice.paymentTerms}</span>
+                </>
+              )}
+            </div>
           </div>
         </div>
 

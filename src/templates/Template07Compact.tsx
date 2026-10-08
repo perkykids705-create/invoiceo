@@ -1,25 +1,30 @@
 import React from 'react';
 import { TemplateProps } from './types';
 import { formatCurrency, formatDateString } from '../utils/formatters';
+import { TemplateLogo } from './TemplateLogo';
 
 export const Template07Compact: React.FC<TemplateProps> = ({ invoice, totals }) => {
   const primaryColor = invoice.customization?.primaryColor || '#475569';
   const dateFormat = invoice.customization?.dateFormat;
   const numFormat = invoice.customization?.numberFormat;
   const curr = invoice.currencySymbol;
+  const logoPos = invoice.customization?.logoPosition || 'left';
 
   return (
     <div className="p-6 sm:p-8 text-slate-800 bg-white min-h-[1050px] flex flex-col justify-between text-xs">
       <div>
+        {/* Top Centered Logo (if logoPosition === 'center') */}
+        {logoPos === 'center' && invoice.business.logo && (
+          <div className="mb-3 pb-2 border-b border-slate-200 flex justify-center">
+            <TemplateLogo invoice={invoice} positionOverride="center" imgClassName="max-h-10 max-w-[140px] object-contain" />
+          </div>
+        )}
+
         {/* Compact Header */}
         <div className="flex justify-between items-center pb-3 border-b border-slate-300 mb-4">
           <div className="flex items-center gap-3">
-            {invoice.business.logo && (
-              <img
-                src={invoice.business.logo}
-                alt="Logo"
-                className="max-h-10 max-w-[120px] object-contain"
-              />
+            {logoPos === 'left' && invoice.business.logo && (
+              <TemplateLogo invoice={invoice} positionOverride="left" imgClassName="max-h-10 max-w-[120px] object-contain" />
             )}
             <div>
               <div className="font-bold text-sm text-slate-900 leading-tight">
@@ -29,7 +34,10 @@ export const Template07Compact: React.FC<TemplateProps> = ({ invoice, totals }) 
             </div>
           </div>
 
-          <div className="text-right">
+          <div className="text-right flex flex-col items-end">
+            {logoPos === 'right' && invoice.business.logo && (
+              <TemplateLogo invoice={invoice} positionOverride="right" className="mb-1" imgClassName="max-h-10 max-w-[120px] object-contain" />
+            )}
             <span className="font-mono font-bold text-xs uppercase px-2 py-0.5 bg-slate-100 rounded text-slate-800">
               INVOICE #{invoice.invoiceNumber || 'INV-0001'}
             </span>

@@ -1,12 +1,14 @@
 import React from 'react';
 import { TemplateProps } from './types';
 import { formatCurrency, formatDateString } from '../utils/formatters';
+import { TemplateLogo } from './TemplateLogo';
 
 export const Template05Sidebar: React.FC<TemplateProps> = ({ invoice, totals }) => {
   const primaryColor = invoice.customization?.primaryColor || '#0d9488';
   const dateFormat = invoice.customization?.dateFormat;
   const numFormat = invoice.customization?.numberFormat;
   const curr = invoice.currencySymbol;
+  const logoPos = invoice.customization?.logoPosition || 'left';
 
   return (
     <div className="bg-white text-slate-800 min-h-[1050px] flex flex-col justify-between">
@@ -15,10 +17,11 @@ export const Template05Sidebar: React.FC<TemplateProps> = ({ invoice, totals }) 
         <div className="col-span-4 bg-slate-50 border-r border-slate-200 p-6 flex flex-col justify-between">
           <div className="space-y-6">
             {invoice.business.logo && (
-              <img
-                src={invoice.business.logo}
-                alt="Logo"
-                className="max-h-14 max-w-full object-contain mb-2"
+              <TemplateLogo
+                invoice={invoice}
+                positionOverride={logoPos}
+                className="mb-2"
+                imgClassName="max-h-14 max-w-full object-contain"
               />
             )}
             <div>

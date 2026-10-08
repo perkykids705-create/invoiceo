@@ -34,24 +34,25 @@ const hexToRgb = (hex: string): HexRgb => {
  * custom primary colors, fonts, logo placement, item tables, and totals.
  */
 export const generateSearchablePdf = async (invoice: InvoiceData): Promise<void> => {
-  // First attempt: High-fidelity DOM capture via html2canvas to ensure 100% template visual match
+  // Let DOM settle for any dynamic state changes
+  await new Promise((resolve) => setTimeout(resolve, 100));
+
+  // High-fidelity DOM capture via html2canvas to ensure 100% template visual match
   const exportTarget =
     document.getElementById('invoice-pdf-export-container') ||
     document.getElementById('invoice-print-sheet');
 
   if (exportTarget) {
     try {
-      // Allow any in-flight image or dynamic style changes to settle
-      await new Promise((resolve) => setTimeout(resolve, 80));
-
       // Wait for any embedded images (e.g. uploaded business logo) to be fully loaded
-      const images = exportTarget.querySelectorAll('img');
+      const images = Array.from(exportTarget.querySelectorAll('img'));
       await Promise.all(
-        Array.from(images).map((img) => {
-          if (img.complete) return Promise.resolve(null);
+        images.map((img) => {
+          if (img.complete && img.naturalHeight !== 0) return Promise.resolve(null);
           return new Promise((res) => {
             img.onload = () => res(null);
             img.onerror = () => res(null);
+            setTimeout(() => res(null), 1200);
           });
         })
       );
@@ -59,73 +60,97 @@ export const generateSearchablePdf = async (invoice: InvoiceData): Promise<void>
       const canvas = await html2canvas(exportTarget, {
         scale: 2, // Crisp 300 DPI print quality
         useCORS: true,
-        allowTaint: true,
+        allowTaint: false, // Prevents security error when calling toDataURL
         backgroundColor: '#ffffff',
         logging: false,
         windowWidth: 794,
         scrollX: 0,
         scrollY: 0,
         onclone: (clonedDoc, clonedElement) => {
-          // Normalize position and visibility in cloned DOM
+          const clonedWin = clonedDoc.defaultView || window;
+
+          // Clear out everything else in clonedDoc body to isolate our invoice template
+          while (clonedDoc.body.firstChild) {
+            clonedDoc.body.removeChild(clonedDoc.body.firstChild);
+          }
+          clonedDoc.body.style.margin = '0';
+          clonedDoc.body.style.padding = '0';
+          clonedDoc.body.style.backgroundColor = '#ffffff';
+          clonedDoc.body.style.width = '794px';
+          clonedDoc.body.style.minHeight = '1123px';
+          clonedDoc.body.style.overflow = 'visible';
+
+          // Put clonedElement at top-left static flow
           clonedElement.style.position = 'static';
           clonedElement.style.transform = 'none';
+          clonedElement.style.left = '0';
+          clonedElement.style.top = '0';
           clonedElement.style.zIndex = '1';
           clonedElement.style.visibility = 'visible';
           clonedElement.style.opacity = '1';
           clonedElement.style.width = '794px';
+          clonedElement.style.minHeight = '1123px';
           clonedElement.style.margin = '0';
+          clonedElement.style.padding = '0';
+          clonedElement.style.display = 'block';
+
+          clonedDoc.body.appendChild(clonedElement);
 
           // Helper to sanitize Tailwind v4 oklch / lab color values to standard rgb / hex
-          const tempCanvas = clonedDoc.createElement('canvas');
-          const tempCtx = tempCanvas.getContext('2d');
+          try {
+            const tempCanvas = clonedDoc.createElement('canvas');
+            const tempCtx = tempCanvas.getContext('2d');
 
-          const sanitizeColor = (colorStr: string): string => {
-            if (!colorStr) return colorStr;
-            if (
-              colorStr.includes('oklch') ||
-              colorStr.includes('lab') ||
-              colorStr.includes('color(')
-            ) {
-              if (tempCtx) {
-                try {
-                  tempCtx.fillStyle = '#000000';
-                  tempCtx.fillStyle = colorStr;
-                  return tempCtx.fillStyle;
-                } catch {
-                  return '#000000';
+            const sanitizeColor = (colorStr: string): string => {
+              if (!colorStr) return colorStr;
+              if (
+                colorStr.includes('oklch') ||
+                colorStr.includes('lab') ||
+                colorStr.includes('color(')
+              ) {
+                if (tempCtx) {
+                  try {
+                    tempCtx.fillStyle = '#000000';
+                    tempCtx.fillStyle = colorStr;
+                    return tempCtx.fillStyle;
+                  } catch {
+                    return '#000000';
+                  }
                 }
               }
-            }
-            return colorStr;
-          };
+              return colorStr;
+            };
 
-          const allElements = clonedElement.querySelectorAll('*');
-          allElements.forEach((el) => {
-            const htmlEl = el as HTMLElement;
-            try {
-              const computed = window.getComputedStyle(htmlEl);
-              if (
-                computed.color &&
-                (computed.color.includes('oklch') || computed.color.includes('lab'))
-              ) {
-                htmlEl.style.color = sanitizeColor(computed.color);
+            const allElements = clonedElement.querySelectorAll('*');
+            allElements.forEach((el) => {
+              const htmlEl = el as HTMLElement;
+              try {
+                const computed = clonedWin.getComputedStyle(htmlEl);
+                if (
+                  computed.color &&
+                  (computed.color.includes('oklch') || computed.color.includes('lab'))
+                ) {
+                  htmlEl.style.color = sanitizeColor(computed.color);
+                }
+                if (
+                  computed.backgroundColor &&
+                  (computed.backgroundColor.includes('oklch') || computed.backgroundColor.includes('lab'))
+                ) {
+                  htmlEl.style.backgroundColor = sanitizeColor(computed.backgroundColor);
+                }
+                if (
+                  computed.borderColor &&
+                  (computed.borderColor.includes('oklch') || computed.borderColor.includes('lab'))
+                ) {
+                  htmlEl.style.borderColor = sanitizeColor(computed.borderColor);
+                }
+              } catch {
+                // Ignore detached node
               }
-              if (
-                computed.backgroundColor &&
-                (computed.backgroundColor.includes('oklch') || computed.backgroundColor.includes('lab'))
-              ) {
-                htmlEl.style.backgroundColor = sanitizeColor(computed.backgroundColor);
-              }
-              if (
-                computed.borderColor &&
-                (computed.borderColor.includes('oklch') || computed.borderColor.includes('lab'))
-              ) {
-                htmlEl.style.borderColor = sanitizeColor(computed.borderColor);
-              }
-            } catch {
-              // Ignore detached node
-            }
-          });
+            });
+          } catch (sanitizeErr) {
+            console.warn('Color sanitization warning:', sanitizeErr);
+          }
         },
       });
 
@@ -237,27 +262,51 @@ export const generateVectorFallbackPdf = async (invoice: InvoiceData): Promise<v
     doc.text(pageStr, pageWidth - margin, pageHeight - 10, { align: 'right' });
   };
 
+  const logoPos = invoice.customization?.logoPosition || 'left';
+
+  // Draw Logo at top if present (before or alongside header)
+  let logoDrawn = false;
+  const drawTopLogo = (x: number, y: number, w = 32, h = 16) => {
+    if (!invoice.business.logo || logoDrawn) return;
+    try {
+      doc.addImage(invoice.business.logo, 'JPEG', x, y, w, h, undefined, 'FAST');
+      logoDrawn = true;
+    } catch {
+      // Ignore
+    }
+  };
+
   // Header Styling differentiated by selected Template
   if (tpl === 'template-04') {
     // Bold Header: Solid Banner
     doc.setFillColor(primaryRgb.r, primaryRgb.g, primaryRgb.b);
     doc.rect(0, 0, pageWidth, 44, 'F');
 
+    if (logoPos === 'center' && invoice.business.logo) {
+      drawTopLogo((pageWidth - 30) / 2, 4, 30, 14);
+    } else if (logoPos === 'left' && invoice.business.logo) {
+      drawTopLogo(margin, 8, 30, 14);
+    }
+
     doc.setTextColor(255, 255, 255);
     doc.setFont(fontName, 'bold');
     doc.setFontSize(22);
-    doc.text('INVOICE', margin, 24);
+    doc.text('INVOICE', margin, logoPos === 'left' && invoice.business.logo ? 30 : 22);
 
     doc.setFontSize(10);
     doc.setFont(fontName, 'normal');
-    doc.text(`# ${invoice.invoiceNumber}`, margin, 33);
+    doc.text(`# ${invoice.invoiceNumber || 'INV-0001'}`, margin, logoPos === 'left' && invoice.business.logo ? 37 : 30);
+
+    if (logoPos === 'right' && invoice.business.logo) {
+      drawTopLogo(pageWidth - margin - 30, 6, 30, 14);
+    }
 
     doc.setFont(fontName, 'bold');
-    doc.setFontSize(14);
-    doc.text(invoice.business.name || 'Business Name', pageWidth - margin, 22, { align: 'right' });
+    doc.setFontSize(13);
+    doc.text(invoice.business.name || 'Business Name', pageWidth - margin, logoPos === 'right' && invoice.business.logo ? 26 : 22, { align: 'right' });
     doc.setFont(fontName, 'normal');
-    doc.setFontSize(9);
-    doc.text(invoice.business.email || '', pageWidth - margin, 29, { align: 'right' });
+    doc.setFontSize(8.5);
+    doc.text(invoice.business.email || '', pageWidth - margin, logoPos === 'right' && invoice.business.logo ? 32 : 28, { align: 'right' });
 
     cursorY = 52;
   } else if (tpl === 'template-09') {
@@ -265,6 +314,16 @@ export const generateVectorFallbackPdf = async (invoice: InvoiceData): Promise<v
     doc.setFillColor(primaryRgb.r, primaryRgb.g, primaryRgb.b);
     doc.rect(0, 0, pageWidth, 6, 'F');
     cursorY = margin + 4;
+
+    if (logoPos === 'center' && invoice.business.logo) {
+      drawTopLogo((pageWidth - 30) / 2, cursorY, 30, 15);
+      cursorY += 18;
+    } else if (logoPos === 'left' && invoice.business.logo) {
+      drawTopLogo(margin, cursorY, 30, 15);
+      cursorY += 18;
+    } else if (logoPos === 'right' && invoice.business.logo) {
+      drawTopLogo(pageWidth - margin - 30, cursorY, 30, 15);
+    }
 
     doc.setTextColor(15, 23, 42);
     doc.setFont(fontName, 'bold');
@@ -276,26 +335,92 @@ export const generateVectorFallbackPdf = async (invoice: InvoiceData): Promise<v
     doc.setFillColor(primaryRgb.r, primaryRgb.g, primaryRgb.b);
     doc.rect(0, 0, 50, pageHeight, 'F');
 
+    let sideLogoX = 8;
+    if (logoPos === 'center') sideLogoX = 10;
+    else if (logoPos === 'right') sideLogoX = 14;
+    drawTopLogo(sideLogoX, 10, 26, 13);
+
     doc.setTextColor(255, 255, 255);
     doc.setFont(fontName, 'bold');
     doc.setFontSize(16);
-    doc.text('INVOICE', 8, 25);
+    doc.text('INVOICE', 8, invoice.business.logo ? 30 : 25);
     doc.setFontSize(9);
     doc.setFont(fontName, 'normal');
-    doc.text(invoice.invoiceNumber || '', 8, 32);
+    doc.text(invoice.invoiceNumber || '', 8, invoice.business.logo ? 37 : 32);
 
     doc.setFont(fontName, 'bold');
     doc.setFontSize(11);
-    doc.text(invoice.business.name || '', 8, 48);
+    doc.text(invoice.business.name || '', 8, 52);
     doc.setFont(fontName, 'normal');
     doc.setFontSize(8);
-    if (invoice.business.email) doc.text(invoice.business.email, 8, 54);
-    if (invoice.business.phone) doc.text(invoice.business.phone, 8, 59);
+    if (invoice.business.email) doc.text(invoice.business.email, 8, 58);
+    if (invoice.business.phone) doc.text(invoice.business.phone, 8, 63);
 
     cursorY = margin;
+  } else if (tpl === 'template-06') {
+    // Elegant Centered
+    cursorY = margin;
+    if (logoPos === 'center' || !logoDrawn) {
+      let lX = (pageWidth - 32) / 2;
+      if (logoPos === 'left') lX = margin;
+      else if (logoPos === 'right') lX = pageWidth - margin - 32;
+      drawTopLogo(lX, cursorY, 32, 16);
+      if (invoice.business.logo) cursorY += 18;
+    }
+
+    doc.setFont(fontName, 'bold');
+    doc.setFontSize(18);
+    doc.setTextColor(15, 23, 42);
+    doc.text(invoice.business.name || 'Studio & Associates', pageWidth / 2, cursorY + 6, { align: 'center' });
+
+    doc.setFont(fontName, 'normal');
+    doc.setFontSize(9);
+    doc.setTextColor(100, 116, 139);
+    doc.text(`INVOICE NO. ${invoice.invoiceNumber || 'INV-0001'}`, pageWidth / 2, cursorY + 12, { align: 'center' });
+
+    cursorY += 18;
+  } else if (tpl === 'template-03') {
+    // Corporate Top Bar with thick accent
+    cursorY = margin;
+    if (logoPos === 'center' && invoice.business.logo) {
+      drawTopLogo((pageWidth - 32) / 2, cursorY, 32, 16);
+      cursorY += 18;
+    } else if (logoPos === 'left' && invoice.business.logo) {
+      drawTopLogo(margin, cursorY, 32, 16);
+    } else if (logoPos === 'right' && invoice.business.logo) {
+      drawTopLogo(pageWidth - margin - 32, cursorY, 32, 16);
+    }
+
+    doc.setFont(fontName, 'bold');
+    doc.setFontSize(16);
+    doc.setTextColor(primaryRgb.r, primaryRgb.g, primaryRgb.b);
+    doc.text(invoice.business.name || 'Corporate Entity', logoPos === 'left' && invoice.business.logo ? margin + 36 : margin, cursorY + 7);
+
+    doc.setFont(fontName, 'bold');
+    doc.setFontSize(14);
+    doc.text('TAX INVOICE', pageWidth - margin, cursorY + 6, { align: 'right' });
+    doc.setFont(fontName, 'normal');
+    doc.setFontSize(9);
+    doc.text(`Ref: ${invoice.invoiceNumber || 'INV-0001'}`, pageWidth - margin, cursorY + 12, { align: 'right' });
+
+    cursorY += 18;
+    doc.setDrawColor(primaryRgb.r, primaryRgb.g, primaryRgb.b);
+    doc.setLineWidth(1.2);
+    doc.line(margin, cursorY, pageWidth - margin, cursorY);
+    cursorY += 6;
   } else if (tpl === 'template-02' || tpl === 'template-12') {
     // Minimal Modern
     cursorY = margin;
+    if (logoPos === 'center' && invoice.business.logo) {
+      drawTopLogo((pageWidth - 30) / 2, cursorY, 30, 15);
+      cursorY += 18;
+    } else if (logoPos === 'left' && invoice.business.logo) {
+      drawTopLogo(margin, cursorY, 30, 15);
+      cursorY += 17;
+    } else if (logoPos === 'right' && invoice.business.logo) {
+      drawTopLogo(pageWidth - margin - 30, cursorY, 30, 15);
+    }
+
     doc.setTextColor(30, 41, 59);
     doc.setFont(fontName, 'bold');
     doc.setFontSize(16);
@@ -319,6 +444,16 @@ export const generateVectorFallbackPdf = async (invoice: InvoiceData): Promise<v
   } else {
     // Classic / Corporate Header
     cursorY = margin;
+    if (logoPos === 'center' && invoice.business.logo) {
+      drawTopLogo((pageWidth - 32) / 2, cursorY, 32, 16);
+      cursorY += 18;
+    } else if (logoPos === 'left' && invoice.business.logo) {
+      drawTopLogo(margin, cursorY, 32, 16);
+      cursorY += 17;
+    } else if (logoPos === 'right' && invoice.business.logo) {
+      drawTopLogo(pageWidth - margin - 32, cursorY, 32, 16);
+    }
+
     doc.setTextColor(primaryRgb.r, primaryRgb.g, primaryRgb.b);
     doc.setFont(fontName, 'bold');
     doc.setFontSize(22);
@@ -349,26 +484,6 @@ export const generateVectorFallbackPdf = async (invoice: InvoiceData): Promise<v
       bY += 4;
     }
     cursorY = Math.max(cursorY + 22, bY + 2);
-  }
-
-  // Draw Logo if present
-  if (invoice.business.logo && tpl !== 'template-05') {
-    try {
-      const logoW = 34;
-      const logoH = 18;
-      let logoX = margin;
-      if (invoice.customization?.logoPosition === 'right') {
-        logoX = pageWidth - margin - logoW;
-      } else if (invoice.customization?.logoPosition === 'center') {
-        logoX = (pageWidth - logoW) / 2;
-      }
-      doc.addImage(invoice.business.logo, 'JPEG', logoX, cursorY, logoW, logoH, undefined, 'FAST');
-      if (invoice.customization?.logoPosition !== 'right') {
-        cursorY += logoH + 4;
-      }
-    } catch {
-      // Ignore format errors
-    }
   }
 
   // Divider line

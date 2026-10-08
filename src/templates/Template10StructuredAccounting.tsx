@@ -1,20 +1,32 @@
 import React from 'react';
 import { TemplateProps } from './types';
 import { formatCurrency, formatDateString } from '../utils/formatters';
+import { TemplateLogo } from './TemplateLogo';
 
 export const Template10StructuredAccounting: React.FC<TemplateProps> = ({ invoice, totals }) => {
   const primaryColor = invoice.customization?.primaryColor || '#334155';
   const dateFormat = invoice.customization?.dateFormat;
   const numFormat = invoice.customization?.numberFormat;
   const curr = invoice.currencySymbol;
+  const logoPos = invoice.customization?.logoPosition || 'left';
 
   return (
     <div className="p-8 sm:p-10 text-slate-800 bg-white min-h-[1050px] flex flex-col justify-between font-mono text-xs">
       <div>
+        {/* Top Centered Logo (if logoPosition === 'center') */}
+        {logoPos === 'center' && invoice.business.logo && (
+          <div className="mb-4 pb-2 border-b border-slate-300 flex justify-center">
+            <TemplateLogo invoice={invoice} positionOverride="center" imgClassName="max-h-12 max-w-[160px] object-contain" />
+          </div>
+        )}
+
         {/* Ledger Header Box */}
         <div className="border-2 border-slate-700 p-4 mb-4">
           <div className="flex justify-between items-start">
             <div>
+              {logoPos === 'left' && invoice.business.logo && (
+                <TemplateLogo invoice={invoice} positionOverride="left" className="mb-2" imgClassName="max-h-12 max-w-[160px] object-contain" />
+              )}
               <div className="text-xl font-bold tracking-wider text-slate-900 font-sans uppercase">
                 {invoice.business.name || 'ACCOUNTING ENTITY'}
               </div>
@@ -22,7 +34,10 @@ export const Template10StructuredAccounting: React.FC<TemplateProps> = ({ invoic
               <div className="text-slate-500 mt-1">Tax No: {invoice.business.taxNumber || 'N/A'}</div>
             </div>
 
-            <div className="text-right border-l-2 border-slate-700 pl-4">
+            <div className="text-right border-l-2 border-slate-700 pl-4 flex flex-col items-end">
+              {logoPos === 'right' && invoice.business.logo && (
+                <TemplateLogo invoice={invoice} positionOverride="right" className="mb-2" imgClassName="max-h-12 max-w-[160px] object-contain" />
+              )}
               <div className="text-xl font-bold uppercase text-slate-900 font-sans">STATEMENT / INVOICE</div>
               <div className="mt-1 font-bold">NO: {invoice.invoiceNumber || 'INV-0001'}</div>
               <div>DATE: {formatDateString(invoice.issueDate, dateFormat)}</div>

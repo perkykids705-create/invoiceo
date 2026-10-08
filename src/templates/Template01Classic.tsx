@@ -1,25 +1,30 @@
 import React from 'react';
 import { TemplateProps } from './types';
 import { formatCurrency, formatDateString } from '../utils/formatters';
+import { TemplateLogo } from './TemplateLogo';
 
 export const Template01Classic: React.FC<TemplateProps> = ({ invoice, totals }) => {
   const primaryColor = invoice.customization?.primaryColor || '#30364F';
   const dateFormat = invoice.customization?.dateFormat;
   const numFormat = invoice.customization?.numberFormat;
   const curr = invoice.currencySymbol;
+  const logoPos = invoice.customization?.logoPosition || 'left';
 
   return (
     <div className="p-8 sm:p-10 text-slate-800 bg-white min-h-[1050px] flex flex-col justify-between">
       <div>
+        {/* Top Centered Logo (if logoPosition === 'center') */}
+        {logoPos === 'center' && invoice.business.logo && (
+          <div className="mb-5 pb-2 border-b border-slate-100 flex justify-center">
+            <TemplateLogo invoice={invoice} positionOverride="center" />
+          </div>
+        )}
+
         {/* Header Section */}
         <div className="flex justify-between items-start border-b border-slate-200 pb-6 mb-6">
           <div className="space-y-2 max-w-[55%]">
-            {invoice.business.logo && (
-              <img
-                src={invoice.business.logo}
-                alt={invoice.business.name || 'Company Logo'}
-                className="max-h-16 max-w-[200px] object-contain mb-3"
-              />
+            {logoPos === 'left' && invoice.business.logo && (
+              <TemplateLogo invoice={invoice} positionOverride="left" className="mb-3" />
             )}
             <h1 className="text-xl font-bold tracking-tight text-slate-900">
               {invoice.business.name || 'Your Business Name'}
@@ -36,6 +41,9 @@ export const Template01Classic: React.FC<TemplateProps> = ({ invoice, totals }) 
           </div>
 
           <div className="text-right">
+            {logoPos === 'right' && invoice.business.logo && (
+              <TemplateLogo invoice={invoice} positionOverride="right" className="mb-3" />
+            )}
             <h2
               className="text-3xl font-extrabold tracking-tight uppercase"
               style={{ color: primaryColor }}

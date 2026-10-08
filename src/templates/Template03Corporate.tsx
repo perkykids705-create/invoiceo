@@ -1,25 +1,30 @@
 import React from 'react';
 import { TemplateProps } from './types';
 import { formatCurrency, formatDateString } from '../utils/formatters';
+import { TemplateLogo } from './TemplateLogo';
 
 export const Template03Corporate: React.FC<TemplateProps> = ({ invoice, totals }) => {
   const primaryColor = invoice.customization?.primaryColor || '#1e3a8a';
   const dateFormat = invoice.customization?.dateFormat;
   const numFormat = invoice.customization?.numberFormat;
   const curr = invoice.currencySymbol;
+  const logoPos = invoice.customization?.logoPosition || 'left';
 
   return (
     <div className="p-8 sm:p-10 text-slate-800 bg-white min-h-[1050px] flex flex-col justify-between">
       <div>
+        {/* Top Centered Logo (if logoPosition === 'center') */}
+        {logoPos === 'center' && invoice.business.logo && (
+          <div className="mb-5 pb-3 border-b border-slate-100 flex justify-center">
+            <TemplateLogo invoice={invoice} positionOverride="center" imgClassName="max-h-14 max-w-[160px] object-contain" />
+          </div>
+        )}
+
         {/* Corporate Top Bar */}
         <div className="flex justify-between items-center pb-4 mb-6 border-b-4" style={{ borderColor: primaryColor }}>
           <div className="flex items-center gap-4">
-            {invoice.business.logo && (
-              <img
-                src={invoice.business.logo}
-                alt="Logo"
-                className="max-h-14 max-w-[160px] object-contain"
-              />
+            {logoPos === 'left' && invoice.business.logo && (
+              <TemplateLogo invoice={invoice} positionOverride="left" imgClassName="max-h-14 max-w-[160px] object-contain" />
             )}
             <div>
               <div className="text-xl font-bold tracking-tight text-slate-900">
@@ -29,7 +34,10 @@ export const Template03Corporate: React.FC<TemplateProps> = ({ invoice, totals }
             </div>
           </div>
 
-          <div className="text-right">
+          <div className="text-right flex flex-col items-end">
+            {logoPos === 'right' && invoice.business.logo && (
+              <TemplateLogo invoice={invoice} positionOverride="right" className="mb-2" imgClassName="max-h-14 max-w-[160px] object-contain" />
+            )}
             <span
               className="px-3 py-1 text-xs font-bold text-white rounded-[2px] tracking-wider uppercase inline-block mb-1"
               style={{ backgroundColor: primaryColor }}

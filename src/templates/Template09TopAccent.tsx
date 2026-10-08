@@ -1,12 +1,14 @@
 import React from 'react';
 import { TemplateProps } from './types';
 import { formatCurrency, formatDateString } from '../utils/formatters';
+import { TemplateLogo } from './TemplateLogo';
 
 export const Template09TopAccent: React.FC<TemplateProps> = ({ invoice, totals }) => {
   const primaryColor = invoice.customization?.primaryColor || '#16a34a';
   const dateFormat = invoice.customization?.dateFormat;
   const numFormat = invoice.customization?.numberFormat;
   const curr = invoice.currencySymbol;
+  const logoPos = invoice.customization?.logoPosition || 'left';
 
   return (
     <div className="bg-white text-slate-800 min-h-[1050px] flex flex-col justify-between">
@@ -15,15 +17,18 @@ export const Template09TopAccent: React.FC<TemplateProps> = ({ invoice, totals }
         <div className="h-2 w-full" style={{ backgroundColor: primaryColor }} />
 
         <div className="p-8 sm:p-10">
+          {/* Top Centered Logo (if logoPosition === 'center') */}
+          {logoPos === 'center' && invoice.business.logo && (
+            <div className="mb-6 pb-2 border-b border-slate-100 flex justify-center">
+              <TemplateLogo invoice={invoice} positionOverride="center" imgClassName="max-h-14 max-w-[180px] object-contain" />
+            </div>
+          )}
+
           {/* Header Row */}
           <div className="flex justify-between items-start pb-8 border-b border-slate-200 mb-8">
             <div className="space-y-2">
-              {invoice.business.logo && (
-                <img
-                  src={invoice.business.logo}
-                  alt="Logo"
-                  className="max-h-14 max-w-[180px] object-contain mb-2"
-                />
+              {logoPos === 'left' && invoice.business.logo && (
+                <TemplateLogo invoice={invoice} positionOverride="left" className="mb-2" imgClassName="max-h-14 max-w-[180px] object-contain" />
               )}
               <h1 className="text-2xl font-black tracking-tight text-slate-900">
                 {invoice.business.name || 'Your Company Name'}
@@ -35,7 +40,10 @@ export const Template09TopAccent: React.FC<TemplateProps> = ({ invoice, totals }
             </div>
 
             {/* Right Top Accent Callout */}
-            <div className="text-right">
+            <div className="text-right flex flex-col items-end">
+              {logoPos === 'right' && invoice.business.logo && (
+                <TemplateLogo invoice={invoice} positionOverride="right" className="mb-3" imgClassName="max-h-14 max-w-[180px] object-contain" />
+              )}
               <span className="text-xs font-bold uppercase tracking-widest text-slate-400 block mb-1">
                 Invoice Total
               </span>
