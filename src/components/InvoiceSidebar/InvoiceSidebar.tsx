@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { InvoiceData } from '../../types/invoice';
-import { TemplateSelector } from './TemplateSelector';
 import { CustomizationPanel } from './CustomizationPanel';
 import {
   Download,
@@ -14,6 +13,7 @@ import {
   ChevronUp,
   Sparkles,
   Loader2,
+  SlidersHorizontal,
 } from 'lucide-react';
 
 interface InvoiceSidebarProps {
@@ -43,13 +43,12 @@ export const InvoiceSidebar: React.FC<InvoiceSidebarProps> = ({
   onExportJson,
   onImportClick,
 }) => {
-  const [templateSectionOpen, setTemplateSectionOpen] = useState(true);
-  const [designSectionOpen, setDesignSectionOpen] = useState(true);
+  const [customizationOpen, setCustomizationOpen] = useState(true);
   const [actionsSectionOpen, setActionsSectionOpen] = useState(false);
 
   return (
     <div className="space-y-4">
-      {/* 1. PRIMARY DOWNLOAD BUTTON */}
+      {/* 1. PRIMARY DOWNLOAD & PRINT BUTTONS */}
       <div className="bg-white p-4.5 rounded-[4px] border border-slate-200 shadow-sm space-y-3">
         <button
           type="button"
@@ -94,50 +93,26 @@ export const InvoiceSidebar: React.FC<InvoiceSidebarProps> = ({
         </p>
       </div>
 
-      {/* 2. TEMPLATES ACCORDION */}
+      {/* 2. CUSTOMIZATION ACCORDION (Template Designs Thumbnails + Colors + Typography) */}
       <div className="bg-white rounded-[4px] border border-slate-200 shadow-sm overflow-hidden">
         <button
           type="button"
-          onClick={() => setTemplateSectionOpen(!templateSectionOpen)}
+          onClick={() => setCustomizationOpen(!customizationOpen)}
           className="w-full p-4 flex items-center justify-between text-left hover:bg-slate-50 transition-colors cursor-pointer"
         >
-          <span className="font-extrabold text-sm text-black">
-            Invoice Layout (12 Styles)
-          </span>
-          {templateSectionOpen ? (
-            <ChevronUp className="w-4 h-4 text-black" />
-          ) : (
-            <ChevronDown className="w-4 h-4 text-black" />
-          )}
-        </button>
-        {templateSectionOpen && (
-          <div className="p-4 pt-0 border-t border-slate-100">
-            <TemplateSelector
-              currentTemplate={invoice.template}
-              primaryColor={invoice.customization?.primaryColor || '#30364F'}
-              onSelect={onTemplateChange}
-            />
+          <div className="flex items-center gap-2">
+            <SlidersHorizontal className="w-4 h-4 text-black" />
+            <span className="font-extrabold text-sm text-black">
+              Invoice Customization (12 Designs)
+            </span>
           </div>
-        )}
-      </div>
-
-      {/* 3. DESIGN & STYLING ACCORDION */}
-      <div className="bg-white rounded-[4px] border border-slate-200 shadow-sm overflow-hidden">
-        <button
-          type="button"
-          onClick={() => setDesignSectionOpen(!designSectionOpen)}
-          className="w-full p-4 flex items-center justify-between text-left hover:bg-slate-50 transition-colors cursor-pointer"
-        >
-          <span className="font-extrabold text-sm text-black">
-            Colors & Typography
-          </span>
-          {designSectionOpen ? (
+          {customizationOpen ? (
             <ChevronUp className="w-4 h-4 text-black" />
           ) : (
             <ChevronDown className="w-4 h-4 text-black" />
           )}
         </button>
-        {designSectionOpen && (
+        {customizationOpen && (
           <div className="p-4 pt-0 border-t border-slate-100">
             <CustomizationPanel
               customization={invoice.customization}
@@ -149,7 +124,7 @@ export const InvoiceSidebar: React.FC<InvoiceSidebarProps> = ({
         )}
       </div>
 
-      {/* 4. ACTIONS & DATA CONTROLS ACCORDION */}
+      {/* 3. ACTIONS & DATA CONTROLS ACCORDION */}
       <div className="bg-white rounded-[4px] border border-slate-200 shadow-sm overflow-hidden">
         <button
           type="button"

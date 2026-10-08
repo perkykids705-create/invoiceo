@@ -22,7 +22,6 @@ import { InvoicesListModal } from '../components/InvoiceSidebar/InvoicesListModa
 import { SeoContent } from '../components/Footer/SeoContent';
 import { FourColumnSection } from '../components/Footer/FourColumnSection';
 import { Footer } from '../components/Footer/Footer';
-import { TemplateGallery } from '../components/TemplateGallery/TemplateGallery';
 import { FileEdit, Eye, AlertCircle, CheckCircle2 } from 'lucide-react';
 
 export const InvoiceGeneratorPage: React.FC = () => {
@@ -317,18 +316,6 @@ export const InvoiceGeneratorPage: React.FC = () => {
           </div>
         </div>
       </main>
-
-      {/* 12 Templates Full-Page Layout Gallery - Placed directly in the page with NO scrolling box */}
-      <TemplateGallery
-        currentTemplate={invoice.template}
-        primaryColor={invoice.customization?.primaryColor || '#30364F'}
-        activeInvoice={invoice}
-        onSelectTemplate={(templateId) => {
-          const tpl = TEMPLATES_LIST.find((t) => t.id === templateId);
-          handleInvoiceChange({ ...invoice, template: templateId, updatedAt: new Date().toISOString() });
-          showStatus(`Applied layout: ${tpl?.name || templateId} • Auto-saved`);
-        }}
-      />
 
       {/* SEO Content Area below the generator */}
       <SeoContent />
