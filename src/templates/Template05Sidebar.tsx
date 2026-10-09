@@ -17,9 +17,9 @@ export const Template05Sidebar: React.FC<TemplateProps> = ({ invoice, totals }) 
         <div 
           className="col-span-4 border-r p-6 flex flex-col justify-between shadow-xs"
           style={{ 
-            backgroundColor: `${primaryColor}15`,
-            borderColor: `${primaryColor}30`,
-            borderLeft: `6px solid ${primaryColor}`
+            backgroundColor: `${primaryColor}18`,
+            borderColor: `${primaryColor}35`,
+            borderLeft: `8px solid ${primaryColor}`
           }}
         >
           <div className="space-y-6">

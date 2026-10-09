@@ -89,7 +89,7 @@ export const Template03Corporate: React.FC<TemplateProps> = ({ invoice, totals }
         {/* Table */}
         <table className="w-full text-left mb-6 border border-slate-200">
           <thead>
-            <tr className="bg-slate-800 text-white text-[11px] uppercase tracking-wider">
+            <tr className="text-white text-[11px] uppercase tracking-wider" style={{ backgroundColor: primaryColor }}>
               <th className="py-2.5 px-3">Item & Description</th>
               <th className="py-2.5 px-3 text-center w-20">Quantity</th>
               <th className="py-2.5 px-3 text-right w-28">Unit Price</th>
