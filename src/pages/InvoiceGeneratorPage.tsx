@@ -338,16 +338,17 @@ export const InvoiceGeneratorPage: React.FC = () => {
         aria-hidden="true"
         className={`bg-white font-${invoice.customization?.font || 'inter'}`}
         style={{
-          position: 'absolute',
-          left: '-9999px',
+          position: 'fixed',
+          left: '0',
           top: '0',
           width: '794px',
           minHeight: '1123px',
-          opacity: 1,
+          opacity: 0.01,
           visibility: 'visible',
           backgroundColor: '#ffffff',
           overflow: 'visible',
           pointerEvents: 'none',
+          zIndex: -9999,
         }}
       >
         {renderTemplateComponent(invoice.template, { invoice, totals })}

@@ -190,6 +190,6 @@ export const generateSearchablePdf = async (invoice: InvoiceData): Promise<void>
     pdf.save(`${safeFilename}.pdf`);
   } catch (err) {
     console.error('PDF generation error:', err);
-    window.print();
+    throw err;
   }
 };
