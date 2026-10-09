@@ -15,10 +15,11 @@ export const Template05Sidebar: React.FC<TemplateProps> = ({ invoice, totals }) 
       <div className="grid grid-cols-12 min-h-[1000px]">
         {/* Left Vertical Sidebar Panel (30%) */}
         <div 
-          className="col-span-4 border-r p-6 flex flex-col justify-between"
+          className="col-span-4 border-r p-6 flex flex-col justify-between shadow-xs"
           style={{ 
-            backgroundColor: `${primaryColor}10`,
-            borderColor: `${primaryColor}30`
+            backgroundColor: `${primaryColor}15`,
+            borderColor: `${primaryColor}30`,
+            borderLeft: `6px solid ${primaryColor}`
           }}
         >
           <div className="space-y-6">
