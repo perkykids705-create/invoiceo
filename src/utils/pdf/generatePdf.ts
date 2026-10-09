@@ -37,7 +37,7 @@ export const generateSearchablePdf = async (invoice: InvoiceData): Promise<void>
     const canvas = await html2canvas(exportTarget, {
       scale: 2, // Crisp 300 DPI print quality
       useCORS: true,
-      allowTaint: true,
+      allowTaint: false,
       backgroundColor: '#ffffff',
       logging: false,
       windowWidth: 794,

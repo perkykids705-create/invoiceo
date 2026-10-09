@@ -42,10 +42,10 @@
   body * {
     visibility: hidden;
   }
-  #invoice-print-sheet, #invoice-print-sheet * {
+  #invoice-print-sheet, #invoice-print-sheet *, #invoice-pdf-export-container, #invoice-pdf-export-container * {
     visibility: visible;
   }
-  #invoice-print-sheet {
+  #invoice-print-sheet, #invoice-pdf-export-container {
     position: absolute;
     left: 0;
     top: 0;

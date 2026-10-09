@@ -161,7 +161,9 @@ export const InvoiceGeneratorPage: React.FC = () => {
       showStatus(`Downloaded ${invoice.invoiceNumber}.pdf`);
     } catch (err) {
       console.error('PDF generation error:', err);
-      showStatus('Failed to generate PDF. Please try the Print option.', 'error');
+      // Graceful fallback to print dialog / PDF export
+      window.print();
+      showStatus('Opened print dialog as alternative PDF export.');
     } finally {
       setIsDownloadingPdf(false);
     }
